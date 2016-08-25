@@ -1,0 +1,11 @@
+from random import uniform
+Money = int(input('Please enter money number: '))
+Num = int(input ('How many guys you want to send red bag? '))
+TotalMoney = 0
+for i in range(1,Num):
+    redbag = round(uniform (0.01,((Money-TotalMoney)-(Num-i)*0.01)),2)
+    TotalMoney +=redbag
+    print ('Person: '+str(i))
+    print ('Red bag money: ' +str(redbag))
+print ('Person: ' + str(Num))
+print ('Red bag money: ' +str(round((Money-TotalMoney),2)))
