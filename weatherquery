@@ -1,0 +1,54 @@
+#!/usr/bin/env
+#-*- coding:utf-8 -*-
+
+import requests
+import json
+
+
+cityname = input('请输入你想查询的城市:')
+
+url = ('http://wthrcdn.etouch.cn/weather_mini?city=%s' % cityname)
+# 合并网址
+
+response = requests.get (url)
+#抓取信息
+
+# print (response.json())
+
+data = response.json()
+#转码
+
+result = data['data']
+
+# print (result)
+
+yesterday =result['yesterday']
+yesterdayweather =('昨日:%s\n天气:%s\n%s ~ %s') % (
+    yesterday['date'],
+    yesterday['type'],
+    yesterday['low'],
+    yesterday['high'])
+
+currenttemperature= ('当前温度:%s' % result['wendu'])
+
+weather = [currenttemperature,yesterdayweather]
+#合并当前天气以及昨日天气
+
+forecast=result['forecast']
+
+#print (forecast)
+
+fore=[]
+for i in range (len(forecast)):
+    forecastweather=('日期:%s\n天气:%s\n%s\n%s' % (
+        forecast[i]['date'],
+        forecast[i]['type'],
+        forecast[i]['low'],
+        forecast[i]['high']))
+    weather.append(forecastweather)
+    #print (forecastweather)
+#合并未来天气
+
+for i in range (len(weather)):
+    print ('%s\n' % weather[i])
+    
