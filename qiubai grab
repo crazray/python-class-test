@@ -1,0 +1,27 @@
+#-*- coding; utf-8 -*-
+import requests
+import re
+
+page=1
+url= ('http://www.qiushibaike.com/hot/page/%f/?s=4933088' % page)
+user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36(KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36'
+headers ={ 'User-Agent': user_agent}
+
+try:
+    response=requests.get(url,headers=headers)
+    #print (response.text)
+
+except:
+    print (response.raise_for_status())
+
+content =str(response)
+
+pattern= re.compile(r'''<h2>(.*?)</h2>.*?<div class="content"><span>(.*?)</span>''',re.S)
+
+items = pattern.findall(content)
+
+print (items)
+
+#for item in items:
+    #print (item[0],item[1],item[2])
+
